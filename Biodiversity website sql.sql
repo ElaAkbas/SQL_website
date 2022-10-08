@@ -1,18 +1,19 @@
-
+create database website
 use website 
+use student
 
 
 create table customer (
-id int, --join to account.customer_id
+id int primary key identity(1,1), --join to account.customer_id
 first_name varchar(50),
 last_name varchar(50),
 age int, 
-email varchar(50),
+email varchar(50) unique,
 gender char(1)  --F for female, M for male (O for other)
 )
 
 create table account (
-id int, --join to files.account_id and feedback.account_id
+id int primary key identity(1,1), --join to files.account_id and feedback.account_id
 employee_id int,--join to employee.id
 customer_id int, --join to customer.id
 [password] varchar(50),
@@ -23,7 +24,7 @@ lastupdatedby int --employee id
 )
 
 create table files(
-id int, 
+id int primary key identity(1,1), 
 file_path varchar(max), --path to find file
 file_type varchar(50), --sound, image, image_pp
 date_time datetime, --when is file created
@@ -32,29 +33,30 @@ account_id int --join to account.id
 
 
 create table feedback(
-id int, 
+id int primary key identity(1,1), 
 account_id int, --join to account.id
-feedback_type varchar, --button or text, is it also varchar for the button type?
-issue varchar, --'in progress' 'solved' or 'cancelled' (could not find anything to just store three options? so varchar is the best option I think)
-solved_by varchar --join to employee.id
+feedback_type varchar(20), --button or text, is it also varchar for the button type?
+feedback_ varchar(200), 
+issue varchar(50), --'in progress' 'solved' or 'cancelled' (could not find anything to just store three options? so varchar is the best option I think)
+solved_by int--join to employee.id
 )
 
 create table employee(
-id int, 
+id int primary key identity(1,1), 
 first_name varchar(50),
 last_name varchar(50),
 age int, 
-email varchar(60),
+email varchar(60) unique,
 gender char(1),
 position varchar(30)
 )
 
 create table issue(
-id int, 
+id int primary key identity(1,1), 
+issue_ varchar(200),
 [type] varchar(20), --banned or deleted?
 solution_by int --join to employee.id
 )
-
 /* -- This is not needed at this point since we do not yet have any data, joining on the tables will return empty results 
 select * 
 from customer as c
@@ -80,9 +82,42 @@ left join issue as i
 on e.id = i.solution_by
 */ 
 
+-- Commit messages: Added primary key constraint to all Id columns. Inserted synthetic data into tables for testing and wrote all necessary queries for features in our website. Also added addition columns that are missing such as feedback_and issue_.
 
 --add info test
-select * from customer 
-insert into customer values (1,'Martk','Kleinsma',23,'Marklein@gmail.com','M')
+drop database website 
+delete customer; 
+select * from customer, account -- default is cross apply on everything 
+insert into customer values ('zero','zero_',23,'zero@gmail.com','M') -- https://community.atlassian.com/t5/Bitbucket-questions/If-a-pull-request-is-not-yet-closed-can-I-create-one-more-pull/qaq-p/1345302
+insert into customer values ('one','one_',23,'one@gmail.com','M')
+insert into customer values ('two','two_',23,'two@gmail.com','M')
 
+insert into account values (NULL,1,'adsf',0,getdate(),NULL,NULL)
+insert into account values (NULL,2,'adsf',0,getdate(),NULL,NULL)
+insert into account values (NULL,3,'adsf',0,getdate(),NULL,NULL)
+insert into account values (NULL,4,'adsf',0,getdate(),NULL,NULL)
+
+insert into employee values ('ezero','ezero_',23,'ezero@gmail.com','M','software engineer') 
+insert into employee values ('eone','eone_',23,'eone@gmail.com','M','cloud engineer')
+insert into employee values ('etwo','etwo_',23,'etwo@gmail.com','M','data scientist')
+
+insert into feedback values (1,'review','I like this website',NULL,NULL)
+insert into feedback values (2,'review','I dislike this website',NULL,NULL)
+
+insert into files values ('/user/123.png','image',getdate(),1)
+insert into files values ('/user/100.png','image',getdate(),2)
+insert into files values ('/user/123.wav','sound',getdate(),3)
+
+insert into issue values ('account id 1 has been banned due to innapropriate use','banned',null)
+insert into issue values ('account id 2 has been banned due to spamming','banned',null)
+insert into issue values ('account id 3 has been deleted as per user''s request','deleted',null) -- escape ' with '' 
+
+select * from customer 
+select * from account 
+select * from employee 
+select * from files  
+select * from feedback
+select * from issue 
+
+select * from customer c join account a on c.id = a.customer_id 
 
