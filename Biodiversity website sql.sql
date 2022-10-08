@@ -8,7 +8,7 @@ last_name varchar(50),
 age int, 
 email varchar(50),
 individual_organization varchar(50),
-gender char(1),  --F for female, M for male (O for other)
+gender char(1)  --F for female, M for male (O for other)
 )
 
 create table account (
@@ -19,7 +19,7 @@ pass_word varchar(50),
 islogin bit, --we will turn this off for pushing features (CI/CD concept), prediction? chose bit because it is yes or no
 lastupdated smalldatetime, --when password changed
 lastupdatedreason varchar, --change password/username
-lastupdatedby int, --employee id
+lastupdatedby int --employee id
 )
 
 create table files(
@@ -27,7 +27,7 @@ id int,
 file_path varchar(max), --path to find file
 file_type varchar(50), --sound, image, image_pp
 date_time smalldatetime, --when is file created
-account_id int, --join to account.id
+account_id int --join to account.id
 )
 
 
@@ -36,7 +36,7 @@ id int,
 account_id int, --join to account.id
 fb_type varchar, --button or text, is it also varchar for the button type?
 issue_progres varchar, --'in progress' 'solved' or 'cancelled' (could not find anything to just store three options? so varchar is the best option I think)
-solved_by varchar, --join to employee.id
+solved_by varchar --join to employee.id
 )
 
 create table employee(
@@ -46,14 +46,14 @@ last_name varchar(50),
 age int, 
 email varchar(60),
 gender char(1),
-position varchar(30),
+position varchar(30)
 
 )
 
 create table issue(
 id int, 
 type_iss varchar(20), --banned or deleted?
-solution_by int, --join to employee.id
+solution_by int --join to employee.id
 )
 
 select * 
@@ -81,4 +81,4 @@ on e.id = i.solution_by
 
 --add info test
 select * from customer
-insert into customer values (1,'Martk','Kleinsma',23,'Marklein@gmail.com','individual','M')
+insert into customer values (1,'Mark','Kleinsma',23,'Marklein@gmail.com','individual','M')
