@@ -1,6 +1,5 @@
 create database website
 use website 
-use student
 
 
 create table customer (
