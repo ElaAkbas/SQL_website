@@ -1,6 +1,28 @@
 create database website
 use website 
 
+ALTER DATABASE website
+SET MULTI_USER; -- set database to multi-user so everyone can see the same result 
+
+CREATE LOGIN Frederic   
+    WITH PASSWORD = '123';  
+CREATE USER Frederic FOR LOGIN Frederic;  -- admin is one who created them
+CREATE LOGIN Kyriakos   
+    WITH PASSWORD = '123';  
+CREATE USER Kyriakos FOR LOGIN Kyriakos;  -- admin is one who created them
+CREATE LOGIN Ege   
+    WITH PASSWORD = '123';  
+CREATE USER Ege FOR LOGIN Ege;  -- admin is one who created them
+CREATE LOGIN Jason   
+    WITH PASSWORD = '123';  
+CREATE USER Jason FOR LOGIN Jason;  -- admin is one who created them
+CREATE LOGIN Ela   
+    WITH PASSWORD = '123';  
+CREATE USER Ela FOR LOGIN Ela;  -- admin is one who created them
+drop login Frederic -- testing to drop users 
+drop user Frederic 
+
+
 
 create table customer (
 id int primary key identity(1,1), --join to account.customer_id
