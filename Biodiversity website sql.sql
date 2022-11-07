@@ -1,7 +1,10 @@
 create database website
 use website 
 
-ALTER DATABASE website
+create database website1
+
+
+ALTER DATABASE website1
 SET MULTI_USER; -- set database to multi-user so everyone can see the same result 
 
 CREATE LOGIN Frederic   
@@ -28,21 +31,46 @@ create table customer (
 id int primary key identity(1,1), --join to account.customer_id
 first_name varchar(50),
 last_name varchar(50),
+[password] varchar(400),
 age int, 
 email varchar(50) unique,
-gender char(1)  --F for female, M for male (O for other)
+gender varchar(20)  --F for female, M for male (O for other)
 )
+
+select * from customer
+select * from account
+select * from feedback
+
+drop table customer
+drop table account
+drop table files
+drop table feedback
+drop table employee
+drop table issue
+ 
+
+update customer set age = 33 where age = 52
+
+insert into customer
+values('Jack', 'Sparrow',123, null, 'js@gmail.com', 'M')
+insert into customer
+values('Jack', 'Arrow',123, null, 'jy@gmail.com', 'M')
+insert into customer
+values('Jack', 'Sparrow',123, null, 'jo@gmail.com', 'M')
+
+delete from customer where email = 'js@gmail.com'
 
 create table account (
 id int primary key identity(1,1), --join to files.account_id and feedback.account_id
 employee_id int,--join to employee.id
 customer_id int, --join to customer.id
-[password] varchar(50),
 islogin bit, --we will turn this off for pushing features (CI/CD concept), prediction? chose bit because it is yes or no
 lastupdated datetime, --when password changed
 lastupdatedreason varchar, --change password/username
-lastupdatedby int --employee id
+lastupdatedby int, --employee id
+prediction varchar(50) --predict uploaded image, will show most recent prediction
 )
+
 
 create table files(
 id int primary key identity(1,1), 
@@ -56,11 +84,12 @@ account_id int --join to account.id
 create table feedback(
 id int primary key identity(1,1), 
 account_id int, --join to account.id
-feedback_type varchar(20), --button or text, is it also varchar for the button type?
-feedback_ varchar(200), 
+feedback_button varchar(20), 
+feedback_text varchar(200), 
 issue varchar(50), --'in progress' 'solved' or 'cancelled' (could not find anything to just store three options? so varchar is the best option I think)
 solved_by int--join to employee.id
 )
+
 
 create table employee(
 id int primary key identity(1,1), 
