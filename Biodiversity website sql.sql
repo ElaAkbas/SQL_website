@@ -95,7 +95,7 @@ END
 
 ELSE
 BEGIN
-PRINT 'Table does not exist.'
+create table issue
 END
 
 drop table customer
