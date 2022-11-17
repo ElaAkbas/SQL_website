@@ -26,6 +26,85 @@ drop login Frederic -- testing to drop users
 drop user Frederic 
 
 
+IF EXISTS(SELECT 1 FROM sys.Objects
+WHERE Object_id = OBJECT_ID(N'customer')
+AND Type = N'U')
+BEGIN
+PRINT 'Table exists.'
+END
+
+ELSE
+BEGIN
+create table customer
+END
+
+IF EXISTS(SELECT 1 FROM sys.Objects
+WHERE Object_id = OBJECT_ID(N'account')
+AND Type = N'U')
+BEGIN
+PRINT 'Table exists.'
+END
+
+ELSE
+BEGIN
+create table account
+END
+
+IF EXISTS(SELECT 1 FROM sys.Objects
+WHERE Object_id = OBJECT_ID(N'files')
+AND Type = N'U')
+BEGIN
+PRINT 'Table exists.'
+END
+
+ELSE
+BEGIN
+create table files
+END
+
+IF EXISTS(SELECT 1 FROM sys.Objects
+WHERE Object_id = OBJECT_ID(N'feedback')
+AND Type = N'U')
+BEGIN
+PRINT 'Table exists.'
+END
+
+ELSE
+BEGIN
+create table feedback
+END
+
+IF EXISTS(SELECT 1 FROM sys.Objects
+WHERE Object_id = OBJECT_ID(N'employee')
+AND Type = N'U')
+BEGIN
+PRINT 'Table exists.'
+END
+
+ELSE
+BEGIN
+create table employee
+END
+
+IF EXISTS(SELECT 1 FROM sys.Objects
+WHERE Object_id = OBJECT_ID(N'issue')
+AND Type = N'U')
+BEGIN
+PRINT 'Table exists.'
+END
+
+ELSE
+BEGIN
+PRINT 'Table does not exist.'
+END
+
+drop table customer
+drop table account
+drop table files
+drop table feedback
+drop table employee
+drop table issue
+
 
 create table customer (
 id int primary key identity(1,1), --join to account.customer_id
@@ -40,25 +119,7 @@ gender varchar(20)  --F for female, M for male (O for other)
 select * from customer
 select * from account
 select * from feedback
-
-drop table customer
-drop table account
-drop table files
-drop table feedback
-drop table employee
-drop table issue
  
-
-update customer set age = 33 where age = 52
-
-insert into customer
-values('Jack', 'Sparrow',123, null, 'js@gmail.com', 'M')
-insert into customer
-values('Jack', 'Arrow',123, null, 'jy@gmail.com', 'M')
-insert into customer
-values('Jack', 'Sparrow',123, null, 'jo@gmail.com', 'M')
-
-delete from customer where email = 'js@gmail.com'
 
 create table account (
 id int primary key identity(1,1), --join to files.account_id and feedback.account_id
