@@ -3,6 +3,62 @@ use website
 
 SET MULTI_USER; -- set database to multi-user so everyone can see the same result 
 
+
+IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Frederic') BEGIN
+    CREATE LOGIN Frederic 
+    WITH PASSWORD = '123'
+END
+
+IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Frederic') BEGIN
+    CREATE USER Frederic FOR LOGIN Frederic
+END
+
+
+
+IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Kyriakos') BEGIN
+    CREATE LOGIN Kyriakos
+    WITH PASSWORD = '123'
+END
+
+
+IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Kyriakos') BEGIN
+    CREATE USER Kyriakos FOR LOGIN Kyriakos
+END
+
+
+
+IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Jason') BEGIN
+    CREATE LOGIN Jason
+    WITH PASSWORD = '123'
+END
+
+IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Jason') BEGIN
+    CREATE USER Jason FOR LOGIN Jason
+END
+
+
+
+IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Ela') BEGIN
+    CREATE LOGIN Ela
+	WITH PASSWORD = '123'
+END
+
+IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Ela') BEGIN
+    CREATE USER Ela FOR LOGIN Ela
+END
+
+
+
+IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Ege') BEGIN
+    CREATE LOGIN Ege
+    WITH PASSWORD = '123'
+END
+
+IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Ege') BEGIN
+    CREATE USER Ege FOR LOGIN Ege
+END
+
+/*
 CREATE LOGIN Frederic   
     WITH PASSWORD = '123';  
 CREATE USER Frederic FOR LOGIN Frederic;  -- admin is one who created them
@@ -18,6 +74,9 @@ CREATE USER Jason FOR LOGIN Jason;  -- admin is one who created them
 CREATE LOGIN Ela   
     WITH PASSWORD = '123';  
 CREATE USER Ela FOR LOGIN Ela;  -- admin is one who created them
+-- drop login Frederic -- testing to drop users 
+-- drop user Frederic 
+*/
 
  -- This is not needed at this point since we do not yet have any data, joining on the tables will return empty results 
 select * 
