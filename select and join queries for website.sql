@@ -1,84 +1,6 @@
 use website 
 
 
-SET MULTI_USER; -- set database to multi-user so everyone can see the same result 
-
-
-IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Frederic') BEGIN
-    CREATE LOGIN Frederic 
-    WITH PASSWORD = '123'
-END
-
-IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Frederic') BEGIN
-    CREATE USER Frederic FOR LOGIN Frederic
-END
-
-
-
-IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Kyriakos') BEGIN
-    CREATE LOGIN Kyriakos
-    WITH PASSWORD = '123'
-END
-
-
-IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Kyriakos') BEGIN
-    CREATE USER Kyriakos FOR LOGIN Kyriakos
-END
-
-
-
-IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Jason') BEGIN
-    CREATE LOGIN Jason
-    WITH PASSWORD = '123'
-END
-
-IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Jason') BEGIN
-    CREATE USER Jason FOR LOGIN Jason
-END
-
-
-
-IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Ela') BEGIN
-    CREATE LOGIN Ela
-	WITH PASSWORD = '123'
-END
-
-IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Ela') BEGIN
-    CREATE USER Ela FOR LOGIN Ela
-END
-
-
-
-IF NOT EXISTS(SELECT principal_id FROM sys.server_principals WHERE name = 'Ege') BEGIN
-    CREATE LOGIN Ege
-    WITH PASSWORD = '123'
-END
-
-IF NOT EXISTS(SELECT principal_id FROM sys.database_principals WHERE name = 'Ege') BEGIN
-    CREATE USER Ege FOR LOGIN Ege
-END
-
-/*
-CREATE LOGIN Frederic   
-    WITH PASSWORD = '123';  
-CREATE USER Frederic FOR LOGIN Frederic;  -- admin is one who created them
-CREATE LOGIN Kyriakos   
-    WITH PASSWORD = '123';  
-CREATE USER Kyriakos FOR LOGIN Kyriakos;  -- admin is one who created them
-CREATE LOGIN Ege   
-    WITH PASSWORD = '123';  
-CREATE USER Ege FOR LOGIN Ege;  -- admin is one who created them
-CREATE LOGIN Jason   
-    WITH PASSWORD = '123';  
-CREATE USER Jason FOR LOGIN Jason;  -- admin is one who created them
-CREATE LOGIN Ela   
-    WITH PASSWORD = '123';  
-CREATE USER Ela FOR LOGIN Ela;  -- admin is one who created them
--- drop login Frederic -- testing to drop users 
--- drop user Frederic 
-*/
-
- -- This is not needed at this point since we do not yet have any data, joining on the tables will return empty results 
 select * 
 from customer as c
 left join account as a
@@ -133,6 +55,8 @@ insert into issue values ('account id 1 has been banned due to innapropriate use
 insert into issue values ('account id 2 has been banned due to spamming','banned',null)
 insert into issue values ('account id 3 has been deleted as per user''s request','deleted',null) -- escape ' with '' 
 */
+
+
 
 select * from customer 
 select * from account 
